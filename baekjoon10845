@@ -1,5 +1,5 @@
 #include <iostream>
-#include <stack>
+#include <queue>
 #include <string>
 using namespace std;
 
@@ -7,7 +7,7 @@ int main()
 {
     int n;
     string spell;//명령어
-    stack<int> st;
+    queue<int> que;
     
     cin >> n;
     
@@ -18,32 +18,37 @@ int main()
         {
             int k;
             cin >> k;
-            st.push(k);
+            que.push(k);
         }
         
         else if(spell == "pop")//pop일때
         {
-            if(st.empty())cout<<"-1"<<endl;
+            if(que.empty())cout<<"-1"<<endl;
             else 
             {
-                cout << st.top()<<endl;
-                st.pop();
+                cout << que.front()<<endl;
+                que.pop();
             }
         }
         
         //size일때
-        else if(spell == "size")cout<< st.size()<<endl;
+        else if(spell == "size")cout<< que.size()<<endl;
         
         else if(spell == "empty")//empty일때
         {
-            if(st.empty())cout<<"1"<<endl;
+            if(que.empty())cout<<"1"<<endl;
             else cout << "0" << endl;
         }
         
-        else if(spell == "top")
+        else if(spell == "front")//front일때
         {
-            if(st.empty())cout<<"-1"<<endl;
-            else cout <<st.top()<<endl;
+            if(que.empty())cout<<"-1"<<endl;
+            else cout <<que.front()<<endl;
+        }
+        else if(spell == "back")//back일때
+        {
+            if(que.empty())cout<<"-1"<<endl;
+            else cout <<que.back()<<endl;
         }
         else 
         {
