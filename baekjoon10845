@@ -1,0 +1,55 @@
+#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+
+int main()
+{
+    int n;
+    string spell;//명령어
+    stack<int> st;
+    
+    cin >> n;
+    
+    for(int i = 0; i < n; i++)
+    {
+        cin >> spell;
+        if(spell == "push")//push일때
+        {
+            int k;
+            cin >> k;
+            st.push(k);
+        }
+        
+        else if(spell == "pop")//pop일때
+        {
+            if(st.empty())cout<<"-1"<<endl;
+            else 
+            {
+                cout << st.top()<<endl;
+                st.pop();
+            }
+        }
+        
+        //size일때
+        else if(spell == "size")cout<< st.size()<<endl;
+        
+        else if(spell == "empty")//empty일때
+        {
+            if(st.empty())cout<<"1"<<endl;
+            else cout << "0" << endl;
+        }
+        
+        else if(spell == "top")
+        {
+            if(st.empty())cout<<"-1"<<endl;
+            else cout <<st.top()<<endl;
+        }
+        else 
+        {
+            cout <<"올바른 명령어를 입력하세요"<<endl;
+            i--;
+        };
+    }
+    return 0;
+}
