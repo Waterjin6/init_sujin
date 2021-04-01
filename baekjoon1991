@@ -1,0 +1,82 @@
+#include <iostream>
+
+using namespace std;
+
+void DLR(int n, char root, char alpha[][3]);
+void LDR(int n, char root, char alpha[][3]);
+void LRD(int n, char root, char alpha[][3]);
+
+int main()
+{
+    int n;
+    cin >> n;
+
+    char alpha[n][3] = { {'.'}, };
+
+    for (int i = 0; i < n; i++) // 배열로 입력받기 0:노드 / 1:왼쪽 / 2:오른쪽
+    {
+        cin >> alpha[i][0] >> alpha[i][1] >> alpha[i][2];
+    }
+
+    // 전위 순회 (DLR)
+    DLR(n, 'A', alpha);
+    cout << endl;
+
+    // 중위 순회 (LDR)
+    LDR(n, 'A', alpha);
+    cout << endl;
+
+    //후위 순회 (LRD)
+    LRD(n, 'A', alpha);
+    cout << endl;
+
+    return 0;
+}
+
+void DLR(int n, char root, char alpha[][3])
+{
+    if(root == '.')return;
+    
+    int rootAt;
+
+    for (int i = 0; i < n; i++) //루트노드 위치 찾기
+    {
+        if (alpha[i][0] == root) rootAt = i;
+    }
+
+    cout << alpha[rootAt][0];
+    DLR(n, alpha[rootAt][1], alpha);
+    DLR(n, alpha[rootAt][2], alpha);
+}
+
+void LDR(int n, char root, char alpha[][3])
+{
+    if(root == '.')return;
+    
+    int rootAt;
+
+    for (int i = 0; i < n; i++) //루트노드 위치 찾기
+    {
+        if (alpha[i][0] == root) rootAt = i;
+    }
+    
+    LDR(n, alpha[rootAt][1], alpha);
+    cout << alpha[rootAt][0];
+    LDR(n, alpha[rootAt][2], alpha);
+}
+
+void LRD(int n, char root, char alpha[][3])
+{
+    if(root == '.')return;
+    
+    int rootAt;
+
+    for (int i = 0; i < n; i++) //루트노드 위치 찾기
+    {
+        if (alpha[i][0] == root) rootAt = i;
+    }
+    
+    LRD(n, alpha[rootAt][1], alpha);
+    LRD(n, alpha[rootAt][2], alpha);
+    cout << alpha[rootAt][0];
+}
