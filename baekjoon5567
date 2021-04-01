@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int n, m, friendsToCome = 0;
+    cin >> n >> m;
+    if ((2 > n) || (n > 500) || (1 > m) || (m > 10000)) cin >> n >> m;
+    int friends[n+1] = { 0 }, ffriends[n+1]={ 0 };
+    int friendship[m][2]; //관계식을 저장
+
+    for (int i = 0; i < m; i++)//관계식 배열에 저장하기
+    {
+        cin >> friendship[i][0] >> friendship[i][1];
+    }
+    
+    for (int i = 0; i < m; i++)//상근이의 친구찾기
+    {
+        if (friendship[i][0] == 1) friends[friendship[i][1]]++;
+        else if(friendship[i][1] == 1)friends[friendship[i][0]]++;
+    }
+    
+    for (int i = 2; i <= n; i++)//상근이의 친구의 친구찾기
+    {
+        if (friends[i] != 0)
+        {
+            for (int k = 0; k < m; k++)
+            {
+                if ((friendship[k][0] == i ) ||(friendship[k][1] == i ) )
+                {
+                    ffriends[friendship[k][1]]++;
+                    ffriends[friendship[k][0]]++;
+                }
+            }
+        }
+    }
+    
+    for(int i = 2; i <= n; i++)
+    {
+        if((friends[i] != 0)||(ffriends[i] != 0))friendsToCome++;
+    }
+    cout << friendsToCome;
+    return 0;
+}
