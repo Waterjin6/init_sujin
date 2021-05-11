@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int small[9], sum = 0, count = 0, stop = 0;
+
+    // 9명의 난쟁이 키 입력
+    for (int i = 0; i < 9; i++) {
+        cin >> small[i];
+        while (small[i] >= 100)cin >> small[i];
+        sum += small[i];
+    }
+
+    // 오름차순으로 정렬
+    while (count < 8) {
+        count = 0;
+        for (int i = 0; i < 8; i++) {
+            if (small[i] <= small[i + 1])count++;
+            else {
+                int temp = small[i];
+                small[i] = small[i + 1];
+                small[i + 1] = temp;
+            }
+        }
+    }
+
+    //난쟁이가 아닌 두사람을 찾기
+    for (int i = 0; i < 9; i++) {
+        for (int j = 1; j < 9; j++) {
+            if ((i < j) && (sum - 100 == small[i] + small[j])) {
+                small[i] = -1;
+                small[j] = -1;
+                stop = 1;
+                break;
+            }
+        }
+        if(stop == 1)break;
+    }
+
+    //난쟁이의 키 출력
+    for (int i = 0; i < 9; i++) {
+        if (small[i] != -1)cout << small[i] << "\n";
+    }
+
+    return 0;
+}
