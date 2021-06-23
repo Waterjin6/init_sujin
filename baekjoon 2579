@@ -1,0 +1,18 @@
+#include <iostream>
+using namespace std;
+int main(){
+    int c;
+    cin >> c;
+    int stairs[c], maxs[c]; //stairs는 계단의 값 항목, maxs는 각계단이 마지막계단이라고 가정할때 얻을수 있는 최댓값을 저장
+    for(int i = 0; i < c; i++)cin >> stairs[i];
+    //최댓값 채우기
+    maxs[0] = stairs[0];
+    maxs[1] = stairs[0]+stairs[1];
+    maxs[2] = (stairs[0] > stairs[1])? stairs[2] + stairs[0] : stairs[2]+ stairs[1];
+    for(int i = 3; i < c; i++){
+        int max = ((stairs[i-1] + maxs[i-3]) > maxs[i-2]) ? (stairs[i-1] + maxs[i-3]) : (maxs[i-2]);
+        maxs[i]= stairs[i] + max;
+    }
+    //결과 출력
+    cout << maxs[c-1]<<endl;
+}
